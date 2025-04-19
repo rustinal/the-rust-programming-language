@@ -1,3 +1,6 @@
+use rand::Rng;
+// The Rng trait defines methods that random number generators implement, and this trait must be in
+// scope for us to use those methods.
 use std::io;
 // To obtain user input and then print the result as output, we need to bring the io
 // input/output library into scope with the use statement.
@@ -19,6 +22,14 @@ use std::io;
 fn main() {
     // The println! macro is used to print text or string to the console or screen.
     println!("Guess the number!");
+
+    // The rand::thread_rng() function creates a random number generator that is local to the current thread.
+    // The gen_range() method generates a random number within the specified range.
+    // The ..= syntax is a range expression that creates a range from 1 to 100, inclusive.
+    // The gen_range() method is called on the random number generator created by thread_rng().
+    let secret_number = rand::thread_rng().gen_range(1..=100);
+
+    println!("The secret number is: {secret_number}");
     println!("Please input your guess.");
 
     // We use the let statement to create a new variable called guess.
@@ -36,6 +47,7 @@ fn main() {
     // An associated function is implemented on a type, in this case String, rather than on an instance of that type.
     // The String::new() function creates a new empty string, which is mutable.
     let mut guess = String::new();
+
     // If we hadn't imported the io library with use std::io; at the beginnning of the program, we
     // could still the function by writing this function call as std::io::stdin().
     // The stdin() function returns a handle to the standard input stream, which is typically the keyboard.
@@ -77,3 +89,12 @@ fn main() {
 // The String type is often used in conjunction with the &str type, which is a string slice that represents a borrowed reference to a string.
 // The &str type is immutable, meaning you cannot change its contents after it has been created.
 // The &str type is commonly used for string literals and for passing strings to functions that do not need to modify them.
+//
+// Crates
+// Crates are packages of Rust code that can be shared and reused.
+// The project we are working on is a binary crate, which is an executable.
+// A binary crate is a standalone executable program that can be run from the command line.
+// To get random numbers, we will use the rand crate.
+// The rand crate is a library crate, which contains code that is intended to be used in other
+// programs and can't be executed on its own.
+// The rand crate should be added to the Cargo.toml file in the dependencies section.
