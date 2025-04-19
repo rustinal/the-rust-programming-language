@@ -34,87 +34,107 @@ fn main() {
     // The gen_range() method is called on the random number generator created by thread_rng().
     let secret_number = rand::thread_rng().gen_range(1..=100);
 
-    println!("The secret number is: {secret_number}");
-    println!("Please input your guess.");
+    // The loop keyword creates an infinite loop.
+    loop {
+        println!("Please input your guess.");
 
-    // We use the let statement to create a new variable called guess.
-    // In Rust, variables are immutable by default, meaning their values cannot be changed once they are set.
-    // To create a mutable variable, we use the mut keyword.
+        // We use the let statement to create a new variable called guess.
+        // In Rust, variables are immutable by default, meaning their values cannot be changed once they are set.
+        // To create a mutable variable, we use the mut keyword.
 
-    // The = operator is used to assign a value to a variable.
-    // It tells Rust we want to bind the value on the right to the variable name on the left.
+        // The = operator is used to assign a value to a variable.
+        // It tells Rust we want to bind the value on the right to the variable name on the left.
 
-    // The String::new() function creates a new instance of a String, an empty string, a variable.
-    // The String type is a growable, UTF-8 encoded bit of text.
-    // It is a growable heap-allocated data structure that represents a sequence of characters.
-    // It is used to store and manipulate text in Rust.
-    // The :: syntax indicates that new() is a function associated with the String type, not an instance of the String type.
-    // An associated function is implemented on a type, in this case String, rather than on an instance of that type.
-    // The String::new() function creates a new empty string, which is mutable.
-    let mut guess = String::new();
+        // The String::new() function creates a new instance of a String, an empty string, a variable.
+        // The String type is a growable, UTF-8 encoded bit of text.
+        // It is a growable heap-allocated data structure that represents a sequence of characters.
+        // It is used to store and manipulate text in Rust.
+        // The :: syntax indicates that new() is a function associated with the String type, not an instance of the String type.
+        // An associated function is implemented on a type, in this case String, rather than on an instance of that type.
+        // The String::new() function creates a new empty string, which is mutable.
+        let mut guess = String::new();
 
-    // If we hadn't imported the io library with use std::io; at the beginnning of the program, we
-    // could still the function by writing this function call as std::io::stdin().
-    // The stdin() function returns a handle to the standard input stream, which is typically the keyboard.
-    // The stdin function returns an instance of the Stdin type, i.e. an instance of std::io::Stdin,
-    // which is a type that represents a handle to the standard input for your terminal.
-    io::stdin()
-        // The read_line() method is called on the Stdin instance returned by stdin().
-        // We are passing &mut gyess as an argument to read_line(). to tell it what string to store
-        // the user input in. The read_line() method reads a line of input from the standard input
-        // stream and appends it to the string passed as an argument.
-        // The & indicates that this argument is a reference, which gives you a way to let multiple
-        // parts of your code access one piece of data without needing to copy that data into
-        // memory multiple times.
-        // References are immutable by default, just like variables.
-        .read_line(&mut guess)
-        // The expect() method is called on the result of read_line(). It is used to handle errors.
-        // The read_line() method returns a Result type, which is an enum that can be either Ok or Err.
-        // If the read_line() method is successful, it returns Ok with the number of bytes read.
-        // If it fails, it returns Err with an error message.
-        // If you don't call expect(), the program will compile, but you will get a warning.
-        // The right way to suppress such warnings is to handle the error properly.
-        // But we just want now to crash this program if it fails, so we call expect().
-        .expect("Failed to read line");
+        // If we hadn't imported the io library with use std::io; at the beginnning of the program, we
+        // could still the function by writing this function call as std::io::stdin().
+        // The stdin() function returns a handle to the standard input stream, which is typically the keyboard.
+        // The stdin function returns an instance of the Stdin type, i.e. an instance of std::io::Stdin,
+        // which is a type that represents a handle to the standard input for your terminal.
+        io::stdin()
+            // The read_line() method is called on the Stdin instance returned by stdin().
+            // We are passing &mut gyess as an argument to read_line(). to tell it what string to store
+            // the user input in. The read_line() method reads a line of input from the standard input
+            // stream and appends it to the string passed as an argument.
+            // The & indicates that this argument is a reference, which gives you a way to let multiple
+            // parts of your code access one piece of data without needing to copy that data into
+            // memory multiple times.
+            // References are immutable by default, just like variables.
+            .read_line(&mut guess)
+            // The expect() method is called on the result of read_line(). It is used to handle errors.
+            // The read_line() method returns a Result type, which is an enum that can be either Ok or Err.
+            // If the read_line() method is successful, it returns Ok with the number of bytes read.
+            // If it fails, it returns Err with an error message.
+            // If you don't call expect(), the program will compile, but you will get a warning.
+            // The right way to suppress such warnings is to handle the error properly.
+            // But we just want now to crash this program if it fails, so we call expect().
+            .expect("Failed to read line");
 
-    // Shadow the previous guess variable with a new one.
-    // Shadowing lets us reuse the guess variable name rather than forcing us to create two unique
-    // ones, guess and guess_string.
-    // We bind this new variable to the expression guess.trim().parse().
-    // The guess in the expression refers to the previous guess variable, which is a String.
-    // The user must press Enter after typing their guess, which adds a newline character to the end of the string.
-    // The trim() method is called on the guess string to remove that newline character and any other leading or trailing whitespace.
-    // The parse() method on strings converts a string to another type. Here we use it to convert
-    // from a string to a number.
-    // The colon (:) indicates that we are specifying the type we want to parse the string into.
-    let guess: u32 = guess.trim().parse().expect("Please type a number!");
+        // Shadow the previous guess variable with a new one.
+        // Shadowing lets us reuse the guess variable name rather than forcing us to create two unique
+        // ones, guess and guess_string.
+        // We bind this new variable to the expression guess.trim().parse().
+        // The guess in the expression refers to the previous guess variable, which is a String.
+        // The user must press Enter after typing their guess, which adds a newline character to the end of the string.
+        // The trim() method is called on the guess string to remove that newline character and any other leading or trailing whitespace.
+        // The parse() method on strings converts a string to another type. Here we use it to convert
+        // from a string to a number.
+        // The colon (:) indicates that we are specifying the type we want to parse the string into.
+        let guess: u32 = match guess.trim().parse() {
+            // We switch from an expect() call to a match expression to handle the error case.
+            // This is similar to the Ordering result of the cmp method.
+            // The match expression is used to handle the result of the parse() method.
+            // The parse() method returns a Result type, which can be either Ok or Err.
+            // The num in Ok(num) is a variable that will hold the parsed number if the parse() method is successful.
+            // The => syntax is used to bind the value of the Ok variant to the num variable.
+            Ok(num) => num,
+            Err(_) => continue,
+        };
+        // If we want to modify num, say square it, then it gives an error
+        // "type annotations needed  cannot satisfy '<_ as std::str::FromStr>::Err == _'"
+        // let guess: u32 = match guess.trim().parse::<u32>() {
+        //     Ok(num) => num * num,
+        //     Err(_) => continue,
+        // };
 
-    // The guess variable is now a String that contains the user input.
-    // The {} set of curly brackets is a placeholder for the value of the variable guess.
-    // When printing the value of a variable, the variable can go inside the curly brackets.
-    // When printing the result of evaluating an expression, place empty curly brackets in the
-    // format string, then follow the format string with a comma-separated list of expressions to
-    // print in each empty curly bracket placeholder in the same order they appear.
-    println!("You guessed: {}", guess);
+        // The guess variable is now a String that contains the user input.
+        // The {} set of curly brackets is a placeholder for the value of the variable guess.
+        // When printing the value of a variable, the variable can go inside the curly brackets.
+        // When printing the result of evaluating an expression, place empty curly brackets in the
+        // format string, then follow the format string with a comma-separated list of expressions to
+        // print in each empty curly bracket placeholder in the same order they appear.
+        println!("You guessed: {}", guess);
 
-    // A match expression is made up of a series of arms, each of which consists of a pattern and an expression.
-    // An arm consists of a pattern to match against, and the code that should be run if the value
-    // given to match fits that arm's pattern.
-    // When the code compares the guess to the secret number, it will use the cmp() method.
-    // Say, the guess is 9 and the secret number is 7. Then the guess is greater than the secret number.
-    // The cmp() method will return the Ordering value of Ordering::Greater.
-    // The match expression gets the result of the cmp() method and compares it to the three possible arms:
-    // Ordering::Less, Ordering::Greater, and Ordering::Equal.
-    // It looks at the first arm's pattern, Ordering::Less, and sees that Ordering::Greater doesn't
-    // match with Ordering::Less. So it moves on to the next arm.
-    // It looks at the second arm's pattern, Ordering::Greater, and sees that Ordering::Greater matches.
-    // So it runs the code in that arm, which prints "Too big!" to the console.
-    // The match expression ends after the first successful match, so it won't look at the last arm
-    // in this scenario.
-    match guess.cmp(&secret_number) {
-        Ordering::Less => println!("Too small!"),
-        Ordering::Greater => println!("Too big!"),
-        Ordering::Equal => println!("You guessed it!"),
+        // A match expression is made up of a series of arms, each of which consists of a pattern and an expression.
+        // An arm consists of a pattern to match against, and the code that should be run if the value
+        // given to match fits that arm's pattern.
+        // When the code compares the guess to the secret number, it will use the cmp() method.
+        // Say, the guess is 9 and the secret number is 7. Then the guess is greater than the secret number.
+        // The cmp() method will return the Ordering value of Ordering::Greater.
+        // The match expression gets the result of the cmp() method and compares it to the three possible arms:
+        // Ordering::Less, Ordering::Greater, and Ordering::Equal.
+        // It looks at the first arm's pattern, Ordering::Less, and sees that Ordering::Greater doesn't
+        // match with Ordering::Less. So it moves on to the next arm.
+        // It looks at the second arm's pattern, Ordering::Greater, and sees that Ordering::Greater matches.
+        // So it runs the code in that arm, which prints "Too big!" to the console.
+        // The match expression ends after the first successful match, so it won't look at the last arm
+        // in this scenario.
+        match guess.cmp(&secret_number) {
+            Ordering::Less => println!("Too small!"),
+            Ordering::Greater => println!("Too big!"),
+            Ordering::Equal => {
+                println!("You guessed it!");
+                break;
+            }
+        }
     }
 }
 
