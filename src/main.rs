@@ -1,13 +1,18 @@
-use rand::Rng;
 // The Rng trait defines methods that random number generators implement, and this trait must be in
 // scope for us to use those methods.
-use std::io;
+use rand::Rng;
+
+// The Ordering type is another enum that is used to represent the result of a comparison.
+// It has three variants: Less, Greater, and Equal.
+use std::cmp::Ordering;
+
 // To obtain user input and then print the result as output, we need to bring the io
 // input/output library into scope with the use statement.
 // The io library comes from the standard library, known as std.
 // The std::io module is part of the Rust standard library, which provides basic input and output functionality.
 // The io module contains types and functions for reading from and writing to the console, files, and other I/O streams.
 // In this case, we are using it to read user input from the console.
+use std::io;
 
 // By default, Rust has a set of items defined in the standard libray that it brings into the scope
 // of every program. This set is called the prelude.
@@ -71,6 +76,19 @@ fn main() {
         // The right way to suppress such warnings is to handle the error properly.
         // But we just want now to crash this program if it fails, so we call expect().
         .expect("Failed to read line");
+
+    // Shadow the previous guess variable with a new one.
+    // Shadowing lets us reuse the guess variable name rather than forcing us to create two unique
+    // ones, guess and guess_string.
+    // We bind this new variable to the expression guess.trim().parse().
+    // The guess in the expression refers to the previous guess variable, which is a String.
+    // The user must press Enter after typing their guess, which adds a newline character to the end of the string.
+    // The trim() method is called on the guess string to remove that newline character and any other leading or trailing whitespace.
+    // The parse() method on strings converts a string to another type. Here we use it to convert
+    // from a string to a number.
+    // The colon (:) indicates that we are specifying the type we want to parse the string into.
+    let guess: u32 = guess.trim().parse().expect("Please type a number!");
+
     // The guess variable is now a String that contains the user input.
     // The {} set of curly brackets is a placeholder for the value of the variable guess.
     // When printing the value of a variable, the variable can go inside the curly brackets.
@@ -78,6 +96,26 @@ fn main() {
     // format string, then follow the format string with a comma-separated list of expressions to
     // print in each empty curly bracket placeholder in the same order they appear.
     println!("You guessed: {}", guess);
+
+    // A match expression is made up of a series of arms, each of which consists of a pattern and an expression.
+    // An arm consists of a pattern to match against, and the code that should be run if the value
+    // given to match fits that arm's pattern.
+    // When the code compares the guess to the secret number, it will use the cmp() method.
+    // Say, the guess is 9 and the secret number is 7. Then the guess is greater than the secret number.
+    // The cmp() method will return the Ordering value of Ordering::Greater.
+    // The match expression gets the result of the cmp() method and compares it to the three possible arms:
+    // Ordering::Less, Ordering::Greater, and Ordering::Equal.
+    // It looks at the first arm's pattern, Ordering::Less, and sees that Ordering::Greater doesn't
+    // match with Ordering::Less. So it moves on to the next arm.
+    // It looks at the second arm's pattern, Ordering::Greater, and sees that Ordering::Greater matches.
+    // So it runs the code in that arm, which prints "Too big!" to the console.
+    // The match expression ends after the first successful match, so it won't look at the last arm
+    // in this scenario.
+    match guess.cmp(&secret_number) {
+        Ordering::Less => println!("Too small!"),
+        Ordering::Greater => println!("Too big!"),
+        Ordering::Equal => println!("You guessed it!"),
+    }
 }
 
 // More on the String type:
