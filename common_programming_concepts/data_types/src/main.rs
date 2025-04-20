@@ -80,17 +80,47 @@ fn main() {
     // Compound types can group multiple values into one type
     // There are two primary compound types in Rust:
     // Tuples
-    // Tuples are a fixed-size collection of values
-    // They can be of different types
-    // They are defined using parentheses
-    // They can be destructured
-    // They can be indexed
-    // They can be iterated over
-    // They can be used as function arguments
-    // They can be used as function return values
-    // They can be used as struct fields
-    // They can be used as enum variants
-    // They can be used as array elements
-    // They can be used as vector elements
-    // They can be used as slice elements
+    // Tuples are fixed-size collections of elements of different types.
+    // They are stored on the stack.
+    // They are defined using parentheses.
+    // They are useful when you need to group multiple values together.
+    let tup = (500, 6.4, 'a'); // Tuple
+    let (tx, ty, tz) = tup; // Destructuring a tuple
+    println!("The values in tup are: {tx}, {ty}, {tz}");
+    // You can also access tuple elements using the dot notation
+    println!("The first value in tup is: {}", tup.0);
+
+    let tup2: (i32, f64, u8) = (500, 6.4, 1); // Array
+    let five_hundred = tup2.0; // Accessing the first element of the array
+    let six_point_four = tup2.1; // Accessing the second element of the array
+    let one = tup2.2; // Accessing the third element of the array
+    println!("The values in tup2 are: {five_hundred}, {six_point_four}, {one}");
+    // Arrays
+    // Arrays are fixed-size collections of elements of the same type
+    // They are stored on the stack.
+    // They are defined using square brackets.
+    // They are useful when you know the size of the array at compile time.
+    // They are useful when you need to store a collection of elements of the same type.
+    let _arr = [1, 2, 3, 4, 5]; // Array
+    let _months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+    let _arr2: [i32; 5] = [1, 2, 3, 4, 5]; // Array with 5 elements
+    let _arr3 = [3; 5]; // Array with 5 elements, all initialized to 3
+    // Accessing array elements
+    let _first = _arr2[0]; // Accessing the first element of the array
+    // Accessing the second element of the array
+    let _second = _arr2[1]; // Accessing the second element of the array
+    let _third = _arr2[1]; // Accessing the third element of the array
 }
